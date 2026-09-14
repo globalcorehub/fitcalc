@@ -207,6 +207,21 @@
   }
   </script>
   
+  <!-- Structured Data JSON-LD (MedicalWebPage) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MedicalWebPage",
+    "name": "TDEE & BMR 計算ツール - 1日の総消費カロリーと基礎代謝量を自動計算",
+    "url": "https://fitcalc.globalcorehub.com/ja/tdee-bmr-calculator",
+    "description": "科学的なミフリン・サン・ジェオール計算式に基づき、基礎代謝量(BMR)と1日の総消費カロリー(TDEE)を瞬時に高精度算出します。",
+    "aspect": "HealthCalculation",
+    "medicalAudience": "Patients, Athletes, GeneralPublic",
+    "disclaimer": "計算結果は一般的な目安であり、医師や専門家による医療診断・助言に代わるものではありません。"
+  }
+  </script>
+  
+  
   <!-- BreadcrumbList Schema.org JSON-LD -->
   <script type="application/ld+json">
   {
@@ -587,9 +602,15 @@
       </div>
     </div>
 
+    <!-- Medical Compliance Disclaimer Banner -->
+    <div class="mt-4 p-3.5 rounded-xl border border-amber-500/30 bg-amber-500/10 text-amber-700 dark:text-amber-400 text-xs font-mono flex items-start space-x-2">
+      <span class="text-base leading-none">⚠️</span>
+      <span class="leading-relaxed">⚠️ 免責事項：本ツールの計算結果はフィットネス・健康管理の目安であり、医学的な助言や診断に代わるものではありません。食事制限や激しい運動を始める前に医師にご相談ください。</span>
+    </div>
+
     <!-- Drag & Drop Local Profile Import -->
     <div id="tdee-drop" class="mt-4 p-3 rounded-xl border border-dashed border-[#e2e8f0] dark:border-[#334155] hover:border-[#2563eb] bg-white/5 text-center text-xs opacity-75 cursor-pointer">
-      <span>📂 Drop health profile JSON file here (100% local, FileReader parsed)</span>
+      <span>📂 プロファイル JSON ファイルをここにドロップ（端末内 FileReader 解析、サーバー送信ゼロ）</span>
     </div>
 
     <!-- Interactive Inputs Grid -->
@@ -695,9 +716,9 @@
 
   function calculate() {
     const gender = gEl.value;
-    const age = parseFloat(aEl.value) || 25;
-    const height = parseFloat(hEl.value) || 170;
-    const weight = parseFloat(wEl.value) || 70;
+    const age = Math.max(10, Math.min(120, parseFloat(aEl.value) || 25));
+    const height = Math.max(50, Math.min(260, parseFloat(hEl.value) || 170));
+    const weight = Math.max(20, Math.min(350, parseFloat(wEl.value) || 70));
     const mult = parseFloat(actEl.value) || 1.2;
 
     // Mifflin-St Jeor Equation:
@@ -828,22 +849,220 @@
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="border-t border-[#e7e5e4] dark:border-[#334155] py-8 text-center text-xs opacity-75">
-    <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
-      <div class="text-left space-y-1">
+  <!-- Global Multi-Language Matrix -->
+  <section class="border-t border-[#e7e5e4] dark:border-[#334155] py-10 px-4 sm:px-6 lg:px-8 opacity-95 bg-black/[0.02] dark:bg-white/[0.02]">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6">
+        <div>
+          <h3 class="text-sm font-bold uppercase tracking-wider opacity-85 font-mono flex items-center gap-2">
+            <span>🌐</span> <span>グローバル多言語ネットワーク</span>
+          </h3>
+          <p class="text-xs opacity-60 mt-0.5 font-mono">
+            7 Locales &middot; 49 Localized Endpoints &middot; 100% Client-Side
+          </p>
+        </div>
+        <span class="text-xs font-mono opacity-50">[JA] 日本語 (ja)</span>
+      </div>
+
+      <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-2.5">
+        
+        <a href="/tdee-bmr-calculator" class="p-3 rounded-xl border border-[#e2e8f0] dark:border-[#334155] hover:border-[#2563eb] bg-white dark:bg-[#1e293b] hover:border-[#10b981] transition group flex flex-col justify-between text-center ">
+          <div class="text-xl mb-1">[EN]</div>
+          <div class="text-xs font-bold truncate group-hover:underline">English</div>
+          <div class="text-[10px] opacity-50 font-mono mt-1">6 全ツール一覧</div>
+        </a>
+        
+        <a href="/zh/tdee-bmr-calculator" class="p-3 rounded-xl border border-[#e2e8f0] dark:border-[#334155] hover:border-[#2563eb] bg-white dark:bg-[#1e293b] hover:border-[#10b981] transition group flex flex-col justify-between text-center ">
+          <div class="text-xl mb-1">[ZH]</div>
+          <div class="text-xs font-bold truncate group-hover:underline">简体中文</div>
+          <div class="text-[10px] opacity-50 font-mono mt-1">6 全ツール一覧</div>
+        </a>
+        
+        <a href="/es/tdee-bmr-calculator" class="p-3 rounded-xl border border-[#e2e8f0] dark:border-[#334155] hover:border-[#2563eb] bg-white dark:bg-[#1e293b] hover:border-[#10b981] transition group flex flex-col justify-between text-center ">
+          <div class="text-xl mb-1">[ES]</div>
+          <div class="text-xs font-bold truncate group-hover:underline">Español</div>
+          <div class="text-[10px] opacity-50 font-mono mt-1">6 全ツール一覧</div>
+        </a>
+        
+        <a href="/pt/tdee-bmr-calculator" class="p-3 rounded-xl border border-[#e2e8f0] dark:border-[#334155] hover:border-[#2563eb] bg-white dark:bg-[#1e293b] hover:border-[#10b981] transition group flex flex-col justify-between text-center ">
+          <div class="text-xl mb-1">[PT]</div>
+          <div class="text-xs font-bold truncate group-hover:underline">Português</div>
+          <div class="text-[10px] opacity-50 font-mono mt-1">6 全ツール一覧</div>
+        </a>
+        
+        <a href="/de/tdee-bmr-calculator" class="p-3 rounded-xl border border-[#e2e8f0] dark:border-[#334155] hover:border-[#2563eb] bg-white dark:bg-[#1e293b] hover:border-[#10b981] transition group flex flex-col justify-between text-center ">
+          <div class="text-xl mb-1">[DE]</div>
+          <div class="text-xs font-bold truncate group-hover:underline">Deutsch</div>
+          <div class="text-[10px] opacity-50 font-mono mt-1">6 全ツール一覧</div>
+        </a>
+        
+        <a href="/fr/tdee-bmr-calculator" class="p-3 rounded-xl border border-[#e2e8f0] dark:border-[#334155] hover:border-[#2563eb] bg-white dark:bg-[#1e293b] hover:border-[#10b981] transition group flex flex-col justify-between text-center ">
+          <div class="text-xl mb-1">[FR]</div>
+          <div class="text-xs font-bold truncate group-hover:underline">Français</div>
+          <div class="text-[10px] opacity-50 font-mono mt-1">6 全ツール一覧</div>
+        </a>
+        
+        <a href="/ja/tdee-bmr-calculator" class="p-3 rounded-xl border border-[#e2e8f0] dark:border-[#334155] hover:border-[#2563eb] bg-white dark:bg-[#1e293b] hover:border-[#10b981] transition group flex flex-col justify-between text-center ring-2 ring-[#10b981]/50">
+          <div class="text-xl mb-1">[JA]</div>
+          <div class="text-xs font-bold truncate group-hover:underline">日本語</div>
+          <div class="text-[10px] opacity-50 font-mono mt-1">6 全ツール一覧</div>
+        </a>
+        
+      </div>
+    </div>
+  </section>
+
+  <!-- Comprehensive Multi-Column Footer -->
+  <footer class="border-t border-[#e7e5e4] dark:border-[#334155] pt-12 pb-8 text-xs opacity-90">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Prominent Medical / Financial Compliance Disclaimer Banner -->
+      <div class="mb-10 p-4 rounded-2xl border border-amber-500/30 bg-amber-500/10 text-amber-700 dark:text-amber-400 font-mono flex items-start space-x-3 text-left">
+        <span class="text-lg leading-none mt-0.5">⚠️</span>
+        <div class="leading-relaxed">
+          <strong class="font-bold block mb-0.5 text-xs">重要なお知らせ・免責事項</strong>
+          <span class="text-[11px] opacity-90">計算結果は一般的な目安であり、医師や専門家による医療診断・助言に代わるものではありません。</span>
+        </div>
+      </div>
+      
+
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+        <!-- Col 1: Brand & Architecture -->
+        <div class="space-y-3">
+          <div class="text-sm font-bold tracking-tight">
+            FitCalc Studio
+          </div>
+          <p class="text-[11px] opacity-70 leading-relaxed max-w-xs">
+            科学的なミフリン・サン・ジェオール計算式に基づき、基礎代謝量(BMR)と1日の総消費カロリー(TDEE)を瞬時に高精度算出します。
+          </p>
+          <div class="p-2.5 rounded-xl border border-[#e2e8f0] dark:border-[#334155] hover:border-[#2563eb] bg-white/5 font-mono text-[11px] text-[#10b981]">
+            🔒 100% ブラウザ内ローカル処理：サーバー保存ゼロ、データ送信ゼロで完全なプライバシーを保護。
+          </div>
+        </div>
+
+        <!-- Col 2: Top Tools Navigation -->
+        <div>
+          <h4 class="text-xs font-bold uppercase font-mono tracking-wider opacity-80 mb-3">
+            ツール＆ディレクトリ
+          </h4>
+          <ul class="space-y-2 font-mono text-[11px]">
+            
+            <li>
+              <a href="/ja/tdee-bmr-calculator" class="opacity-70 hover:opacity-100 hover:underline transition truncate block">
+                &rarr; TDEE・代謝計算
+              </a>
+            </li>
+            
+            <li>
+              <a href="/ja/macro-split-calculator" class="opacity-70 hover:opacity-100 hover:underline transition truncate block">
+                &rarr; PFCバランス
+              </a>
+            </li>
+            
+            <li>
+              <a href="/ja/body-fat-calculator" class="opacity-70 hover:opacity-100 hover:underline transition truncate block">
+                &rarr; 体脂肪率 計算
+              </a>
+            </li>
+            
+            <li>
+              <a href="/ja/one-rep-max-calculator" class="opacity-70 hover:opacity-100 hover:underline transition truncate block">
+                &rarr; 1RM 最大挙上重量
+              </a>
+            </li>
+            
+            <li>
+              <a href="/ja/intermittent-fasting-timer" class="opacity-70 hover:opacity-100 hover:underline transition truncate block">
+                &rarr; 断食タイマー
+              </a>
+            </li>
+            
+          </ul>
+        </div>
+
+        <!-- Col 3: Global Languages Hub -->
+        <div>
+          <h4 class="text-xs font-bold uppercase font-mono tracking-wider opacity-80 mb-3">
+            グローバル多言語ネットワーク
+          </h4>
+          <div class="grid grid-cols-2 gap-1.5 font-mono text-[11px]">
+            
+            <a href="/tdee-bmr-calculator" class="opacity-70 hover:opacity-100 hover:underline transition flex items-center gap-1.5 py-0.5">
+              <span>[EN]</span>
+              <span>English</span>
+            </a>
+            
+            <a href="/zh/tdee-bmr-calculator" class="opacity-70 hover:opacity-100 hover:underline transition flex items-center gap-1.5 py-0.5">
+              <span>[ZH]</span>
+              <span>简体中文</span>
+            </a>
+            
+            <a href="/es/tdee-bmr-calculator" class="opacity-70 hover:opacity-100 hover:underline transition flex items-center gap-1.5 py-0.5">
+              <span>[ES]</span>
+              <span>Español</span>
+            </a>
+            
+            <a href="/pt/tdee-bmr-calculator" class="opacity-70 hover:opacity-100 hover:underline transition flex items-center gap-1.5 py-0.5">
+              <span>[PT]</span>
+              <span>Português</span>
+            </a>
+            
+            <a href="/de/tdee-bmr-calculator" class="opacity-70 hover:opacity-100 hover:underline transition flex items-center gap-1.5 py-0.5">
+              <span>[DE]</span>
+              <span>Deutsch</span>
+            </a>
+            
+            <a href="/fr/tdee-bmr-calculator" class="opacity-70 hover:opacity-100 hover:underline transition flex items-center gap-1.5 py-0.5">
+              <span>[FR]</span>
+              <span>Français</span>
+            </a>
+            
+            <a href="/ja/tdee-bmr-calculator" class="opacity-70 hover:opacity-100 hover:underline transition flex items-center gap-1.5 py-0.5">
+              <span>[JA]</span>
+              <span>日本語</span>
+            </a>
+            
+          </div>
+        </div>
+
+        <!-- Col 4: Crawlers & Legal Standards -->
+        <div>
+          <h4 class="text-xs font-bold uppercase font-mono tracking-wider opacity-80 mb-3">
+            規約とクローラー
+          </h4>
+          <ul class="space-y-2 font-mono text-[11px]">
+            <li>
+              <a href="/sitemap.xml" class="opacity-70 hover:opacity-100 hover:underline transition flex items-center gap-1">
+                <span>📄</span> <span>sitemap.xml</span>
+              </a>
+            </li>
+            <li>
+              <a href="/robots.txt" class="opacity-70 hover:opacity-100 hover:underline transition flex items-center gap-1">
+                <span>🤖</span> <span>robots.txt</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://globalcorehub.com" target="_blank" rel="noopener noreferrer" class="opacity-70 hover:opacity-100 hover:underline transition flex items-center gap-1">
+                <span>🌐</span> <span>globalcorehub.com</span>
+              </a>
+            </li>
+            <li class="pt-1 text-[10px] opacity-50 font-mono">
+              ⚡ Cloudflare Edge &bull; 0ms Cold Start
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Bottom Bar -->
+      <div class="border-t border-[#e7e5e4] dark:border-[#334155] pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] opacity-60 font-mono">
         <div>
           &copy; 2026 <strong>FitCalc Studio</strong>. 完全ブラウザ内ローカル処理 · Cloudflare グローバルエッジ高速配信。
         </div>
-        <div class="text-[11px] opacity-60 font-mono">
-          🔒 100% ブラウザ内ローカル処理：サーバー保存ゼロ、データ送信ゼロで完全なプライバシーを保護。
-           · ⚠️ 計算結果は一般的な目安であり、医師や専門家による医療診断・助言に代わるものではありません。
+        <div class="flex items-center space-x-3">
+          <span>100% ブラウザ内クライアント実行</span>
+          <span>&bull;</span>
+          <span>v2.0 Architecture</span>
         </div>
-      </div>
-      <div class="flex space-x-4 font-mono text-[11px]">
-        <a href="/sitemap.xml" class="hover:underline">sitemap.xml</a>
-        <a href="/robots.txt" class="hover:underline">robots.txt</a>
-        <a href="https://globalcorehub.com" target="_blank" class="hover:underline">globalcorehub</a>
       </div>
     </div>
   </footer>
