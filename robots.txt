@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://fitcalc.globalcorehub.com/sitemap.xml
