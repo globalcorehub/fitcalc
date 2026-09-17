@@ -713,24 +713,30 @@
     const gender = gEl.value;
     hipContainer.classList.toggle('hidden', gender === 'male');
 
-    const h = Math.max(50, Math.min(260, parseFloat(hEl.value) || 175));
-    const w = Math.max(20, Math.min(350, parseFloat(wEl.value) || 70));
-    const n = Math.max(15, Math.min(100, parseFloat(nEl.value) || 38));
-    const waist = Math.max(30, Math.min(250, parseFloat(waistEl.value) || 80));
-    const hip = Math.max(30, Math.min(250, parseFloat(hipEl.value) || 95));
+    const h = parseFloat(hEl.value);
+    const w = parseFloat(wEl.value);
+    const n = parseFloat(nEl.value);
+    const waist = parseFloat(waistEl.value);
+    const hip = parseFloat(hipEl.value);
+    const clear = () => { [resBf, resFat, resLean, resCat].forEach(el => { el.textContent = '-'; }); btnCopy.disabled = true; };
+    if (!Number.isFinite(h) || h < 50 || h > 260 || !Number.isFinite(w) || w < 20 || w > 350 || !Number.isFinite(n) || n < 15 || n > 100 || !Number.isFinite(waist) || waist < 30 || waist > 250 || (gender !== 'male' && (!Number.isFinite(hip) || hip < 30 || hip > 250))) { clear(); return; }
+    btnCopy.disabled = false;
+
 
     let bf = 15;
     if (gender === 'male') {
       // Navy formula for men: 495 / (1.0324 - 0.19077 * log10(waist - neck) + 0.15456 * log10(height)) - 450
-      const diff = Math.max(1, waist - n);
+      const diff = waist - n;
+      if (diff <= 0) { clear(); return; }
       bf = 495 / (1.0324 - (0.19077 * Math.log10(diff)) + (0.15456 * Math.log10(h))) - 450;
     } else {
       // Navy formula for women: 495 / (1.29579 - 0.35004 * log10(waist + hip - neck) + 0.22100 * log10(height)) - 450
-      const sum = Math.max(1, waist + hip - n);
+      const sum = waist + hip - n;
+      if (sum <= 0) { clear(); return; }
       bf = 495 / (1.29579 - (0.35004 * Math.log10(sum)) + (0.22100 * Math.log10(h))) - 450;
     }
 
-    bf = Math.min(60, Math.max(3, bf));
+    if (!Number.isFinite(bf) || bf < 0 || bf > 100) { clear(); return; }
     const fatKg = (w * (bf / 100));
     const leanKg = (w - fatKg);
 

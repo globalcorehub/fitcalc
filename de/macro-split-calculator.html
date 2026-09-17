@@ -687,7 +687,11 @@
   const btnCopy = document.getElementById('btn-copy-macro');
 
   function calculate() {
-    const totalCal = Math.max(500, Math.min(10000, parseFloat(calEl.value) || 2000));
+    const totalCal = parseFloat(calEl.value);
+    const clear = () => { [protEl, protKcalEl, carbEl, carbKcalEl, fatEl, fatKcalEl].forEach(el => { el.textContent = '-'; }); btnCopy.disabled = true; };
+    if (!Number.isFinite(totalCal) || totalCal < 500 || totalCal > 10000) { clear(); return; }
+    btnCopy.disabled = false;
+
     const parts = presetEl.value.split('-').map(Number);
     const cPct = parts[0] / 100;
     const pPct = parts[1] / 100;

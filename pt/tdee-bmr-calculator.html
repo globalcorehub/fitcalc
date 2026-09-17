@@ -716,16 +716,21 @@
 
   function calculate() {
     const gender = gEl.value;
-    const age = Math.max(10, Math.min(120, parseFloat(aEl.value) || 25));
-    const height = Math.max(50, Math.min(260, parseFloat(hEl.value) || 170));
-    const weight = Math.max(20, Math.min(350, parseFloat(wEl.value) || 70));
-    const mult = parseFloat(actEl.value) || 1.2;
+    const age = parseFloat(aEl.value);
+    const height = parseFloat(hEl.value);
+    const weight = parseFloat(wEl.value);
+    const mult = parseFloat(actEl.value);
+    const clear = () => { [bmrEl, tdeeEl, cutEl, bulkEl].forEach(el => { el.textContent = '-'; }); btnCopy.disabled = true; };
+    if (!Number.isFinite(age) || age < 10 || age > 120 || !Number.isFinite(height) || height < 50 || height > 260 || !Number.isFinite(weight) || weight < 20 || weight > 350 || !Number.isFinite(mult) || mult <= 0) { clear(); return; }
+    btnCopy.disabled = false;
+
 
     // Mifflin-St Jeor Equation:
     // BMR = 10 * weight(kg) + 6.25 * height(cm) - 5 * age + (5 for male, -161 for female)
     let bmr = (10 * weight) + (6.25 * height) - (5 * age);
     bmr += (gender === 'male' ? 5 : -161);
     bmr = Math.round(bmr);
+    if (bmr <= 0) { clear(); return; }
 
     const tdee = Math.round(bmr * mult);
     const cut = Math.max(1200, tdee - 500);
